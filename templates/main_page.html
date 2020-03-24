@@ -1,66 +1,148 @@
-<html>
+<!doctype html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <title>PET Calculator</title>
     </head>
 
-    <body>
-        <nav class="navbar navbar-inverse">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">PET calculator</a>
-                </div>
-            </div>
-        </nav>
-
+    <nav class="navbar  navbar-expand-sm navbar-light bg-light">
         <div class="container">
-
-            <div class="row">
-                <form method="POST" action=".">
-                    <div class="row">
-                        Month:
-                        <p><input name="month" /></p>
-                    </div>
-                    <div class="row">
-                        Day:
-                        <p><input name="day" /></p>
-                    </div>
-                    <div class="row">
-                        Hour:
-                        <p><input name="hour" /></p>
-                    </div>
-                    <div class="row">
-                        Air temperature:
-                        <p><input name="Ta" /></p>
-                    </div>
-                    <div class="row">
-                        Relative humidity:
-                        <p><input name="RH" /></p>
-                    </div>
-                    <div class="row">
-                        Wind speed:
-                        <p><input name="Ws" /></p>
-                    </div>
-                    <div class="row">
-                        Global shortwave radiation:
-                        <p><input name="radG" /></p>
-                    </div>
-                    <p><input type="submit" value="Calculate" /></p>
-
-                </form>
+            <a class="navbar-brand" href="/">PET Calculator</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="None">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="prognose">PET prognose </a>
+                    </li>
+                    <li class="nav-item my-2 my-lg-0">
+                        <a class="nav-link" href="about">about</a>
+                    </li>
+                 </ul>
             </div>
+        </div>
+    </nav>
 
-        </div><!-- /.container -->
-
+    <body>
+        <div class="container">
+            <form method="POST" action=".">
+                <div class="row"><p><p></div>
+                <div class="form-group row">
+                    <label for="Month" class="col-sm-2 col-form-label">Month:</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="month" name="month" placeholder="(1-12)">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Day" class="col-sm-2 col-form-label">Day:</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="day" name="day" placeholder="(1-31)">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Hour" class="col-sm-2 col-form-label">Hour:</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="hour" name="hour" placeholder="(0-23)">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Ta" class="col-sm-2 col-form-label">Air temperature:</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="Ta" name="Ta" placeholder="(°C)">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="RH" class="col-sm-2 col-form-label">Relative humidity:</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="RH" name="RH" placeholder="(0-100%)">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Ws" class="col-sm-2 col-form-label">Wind speed:</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="Ws" name="Ws" placeholder="(m/s)">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Sky" class="col-sm-2 col-form-label">Sky condition:</label>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="sky" name="sky">
+                            <option>Clear</option>
+                            <option>Semi-cloudy</option>
+                            <option>Cloudy</option>
+                            <option>Overcast</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row col-sm-2">
+                    <p><input type="submit" value="Calculate" /><p>
+                </div>
+            </form>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 </html>
+
+
+<!--div class="row justify-content-start">
+                    <div class="col-2">
+                        Month (1-12):
+                    </div>
+                    <div class="col-2">
+                        <p><input name="month" /></p>
+                    </div>
+                </div>
+                <div class="row">
+                    Day (1-31):
+                    <p><input name="day" /></p>
+                </div>
+
+                <div class="row">
+                    Hour (1-24):
+                    <p><input name="hour" /></p>
+                </div>
+                <div class="row">
+                    Air temperature (°C):
+                    <p><input name="Ta" /></p>
+                </div-->
+
+                <!--div class="row">
+                    Relative humidity (%):
+                    <p><input name="RH" /></p>
+                </div>
+                <div class="row">
+                    Wind speed (m/s):
+                    <p><input name="Ws" /></p>
+                </div>
+                <div class="row">
+                    Global shortwave radiation:
+                    <p><input name="radG" /></p>
+                </div>
+                <div class="row">
+                <div class="form-group row">
+                    <label for="Day" class="col-sm-2 col-form-label">Relative humidity:</label>
+                    <div class="col-sm-1">
+                        <input type="text" class="form-control" id="day" name="day" name="RH" placeholder="(0-100%)">
+                    </div>
+                </div>
+                <div class="row">
+                    Sky condition:
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <select class="form-control" id="sky" name="sky">
+                                <option>Clear</option>
+                                <option>Semi-cloudy</option>
+                                <option>Cloudy</option>
+                                <option>Overcast</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row"><p><p></div-->
+

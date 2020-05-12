@@ -70,7 +70,6 @@ def prognose():
         Ta = np.empty(veclen, float)
         RH = np.empty(veclen, float)
         radD = np.empty(veclen, float)
-        radI_horr = np.empty(veclen, float)
         radI = np.empty(veclen, float)
         radG = np.empty(veclen, float)
         Ws = np.empty(veclen, float)
@@ -84,13 +83,13 @@ def prognose():
             Ta[i] = float(dict_loaded['data_vars']['air_temperature']['data'][i])
             RH[i] = float(dict_loaded['data_vars']['relative_humidity']['data'][i])
             radD[i] = float(dict_loaded['data_vars']['downward_diffuse']['data'][i])
-            radI_horr[i] = float(dict_loaded['data_vars']['downward_direct']['data'][i])
+            radI[i] = float(dict_loaded['data_vars']['downward_direct']['data'][i])
             Ws[i] = np.sqrt(float(dict_loaded['data_vars']['eastward_wind']['data'][i])**2 + float(dict_loaded['data_vars']['northward_wind']['data'][i])**2)
             
         with np.errstate(invalid='ignore'):
-          radI_horr[radI_horr < 0.] = 0.
+          radI[radI < 0.] = 0.
           radD[radD < 0.] = 0.
-        radG = radD + radI_horr
+        radG = radD + radI
 
         # re-create xarray Dataset
         #x_loaded = Dataset.from_dict(dict_loaded)

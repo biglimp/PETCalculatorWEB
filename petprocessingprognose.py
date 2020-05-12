@@ -85,7 +85,8 @@ def petcalcprognose(Ta, RH, Ws, radG, radD, radI, year, month, day, hour, minu, 
     YYYY, altitude, azimuth, zen, jday, leafon, dectime, altmax = metload.Solweig_2015a_metdata_noload(metdata, location, UTC)
 
     radI = (radG - radD)/(np.sin(altitude[0][:]*(np.pi/180)))
-    radI[radI < 0] = 0.
+    with np.errstate(invalid='ignore'):
+      radI[radI < 0] = 0.
     for i in range(0,  Ta.__len__()):
         if altitude[0][i] < 0.:
            radG[i] = 0.

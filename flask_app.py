@@ -86,9 +86,10 @@ def prognose():
             radD[i] = float(dict_loaded['data_vars']['downward_diffuse']['data'][i])
             radI_horr[i] = float(dict_loaded['data_vars']['downward_direct']['data'][i])
             Ws[i] = np.sqrt(float(dict_loaded['data_vars']['eastward_wind']['data'][i])**2 + float(dict_loaded['data_vars']['northward_wind']['data'][i])**2)
-
-        radI_horr[radI_horr < 0.] = 0.
-        radD[radD < 0.] = 0.
+            
+        with np.errstate(invalid='ignore'):
+          radI_horr[radI_horr < 0.] = 0.
+          radD[radD < 0.] = 0.
         radG = radD + radI_horr
 
         # re-create xarray Dataset

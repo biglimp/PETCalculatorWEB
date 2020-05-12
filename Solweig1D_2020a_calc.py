@@ -248,7 +248,7 @@ def Solweig1D_2020a_calc(svf, svfveg, svfaveg, sh, vegsh,  albedo_b, absK, absL,
 
     Sstr_Li = absK * ((KsideI + KsideD) * Fcyl + (Kdown + Kup) * Fup + (Knorth + Keast + Ksouth + Kwest) * Fside) \
                 + absL * ((Ldown + Lup) * Fup + (Lnorth_i + Least_i + Lsouth_i + Lwest_i) * Fside)
-    print("Sstr=" + str(Sstr))
+    # print("Sstr=" + str(Sstr))
 
 
     Tmrt = float(np.sqrt(np.sqrt((Sstr / (absL * SBC)))) - 273.2)

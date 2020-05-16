@@ -7,7 +7,7 @@ import PET_calculations as p
 import UTCI_calculations as utci
 #import matplotlib.pylab as plt
 
-def petcalcprognose(Ta, RH, Ws, radG, radD, radI, year, month, day, hour, minu, lat, lon, UTC):
+def petcalcprognose(Ta, RH, Ws, radG, radD, radI, year, month, day, hour, minu, lat, lon, UTC, elev=3.):
 
     elvis = 0
     cyl = 1
@@ -81,7 +81,7 @@ def petcalcprognose(Ta, RH, Ws, radG, radD, radI, year, month, day, hour, minu, 
     # metdata[0, 22] = radI
     # metdata[0, 9] = Ws
 
-    location = {'longitude': lon, 'latitude': lat, 'altitude': 3.}
+    location = {'longitude': lon, 'latitude': lat, 'altitude': elev}
     YYYY, altitude, azimuth, zen, jday, leafon, dectime, altmax = metload.Solweig_2015a_metdata_noload(metdata, location, UTC)
 
     radI = (radG - radD)/(np.sin(altitude[0][:]*(np.pi/180)))
@@ -149,15 +149,22 @@ def petcalcprognose(Ta, RH, Ws, radG, radD, radI, year, month, day, hour, minu, 
             Twater = np.mean(Ta[jday[0] == np.floor(dectime[i])])
 
         # Nocturnal cloudfraction from Offerle et al. 2003
+        # Last CI from previous day is used until midnight
+        # after which we swap to first CI of following day. 
         if (dectime[i] - np.floor(dectime[i])) == 0:
             daylines = np.where(np.floor(dectime) == dectime[i])
             alt = altitude[0][daylines]
             alt2 = np.where(alt > 1)
             rise = alt2[0][0]
-            [_, CI, _, _, _] = ci.clearnessindex_2013b(zen[0, i + rise + 1], jday[0, i + rise + 1],
-                                                    Ta[i + rise + 1],
-                                                    RH[i + rise + 1] / 100., radG[i + rise + 1], location,
-                                                    P[i + rise + 1])
+            try:
+              [_, CI, _, _, _] = ci.clearnessindex_2013b(zen[0, i + rise + 1], 
+                jday[0, i + rise + 1], Ta[i + rise + 1],
+                RH[i + rise + 1] / 100., radG[i + rise + 1], location,
+                P[i + rise + 1])
+            except IndexError as error:
+              # there was no hour after sunrise for following day. 
+              # Just keep the last CI
+              pass
             if (CI > 1) or (CI == np.inf):
                 CI = 1
 

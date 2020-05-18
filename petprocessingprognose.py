@@ -155,8 +155,8 @@ def petcalcprognose(Ta, RH, Ws, radG, radD, radI, year, month, day, hour, minu, 
             daylines = np.where(np.floor(dectime) == dectime[i])
             alt = altitude[0][daylines]
             alt2 = np.where(alt > 1)
-            rise = alt2[0][0]
             try:
+              rise = alt2[0][0]
               [_, CI, _, _, _] = ci.clearnessindex_2013b(zen[0, i + rise + 1], 
                 jday[0, i + rise + 1], Ta[i + rise + 1],
                 RH[i + rise + 1] / 100., radG[i + rise + 1], location,

@@ -144,7 +144,7 @@ def Perez_v3(zen, azimuth, radD, radI, jday, patchchoice):
     # sky clearness bins
     if PerezClearness < 1.065:
         intClearness = 0
-    if PerezClearness > 1.065 and PerezClearness < 1.230:
+    elif PerezClearness < 1.230:
         intClearness = 1
     if PerezClearness > 1.230 and PerezClearness < 1.500:
         intClearness = 2

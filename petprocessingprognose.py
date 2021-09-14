@@ -138,7 +138,7 @@ def petcalcprognose(Ta, RH, Ws, radG, radD, radI, year, month, day, hour, minu, 
         diffsh = []
 
     #numformat = '%3d %2d %3d %2d %6.5f ' + '%6.2f ' * 29
-    poi_save = np.zeros((Ta.__len__(), 34))
+    poi_save = np.zeros((Ta.__len__(), 34))*np.NaN
 
 
     # main loop
@@ -168,15 +168,20 @@ def petcalcprognose(Ta, RH, Ws, radG, radD, radI, year, month, day, hour, minu, 
             if (CI > 1) or (CI == np.inf):
                 CI = 1
 
-        Tmrt, Kdown, Kup, Ldown, Lup, Tg, ea, esky, I0, CI, Keast, Ksouth, Kwest, Knorth, Least, Lsouth, Lwest, \
-        Lnorth, KsideI, radIo, radDo, shadow = so.Solweig1D_2020a_calc(svf, svfveg, svfaveg, sh, vegsh,  albedo_b, absK, absL, ewall,
+        try:
+          Tmrt, Kdown, Kup, Ldown, Lup, Tg, ea, esky, I0, CI, Keast, Ksouth, Kwest, Knorth, Least, Lsouth, Lwest, \
+          Lnorth, KsideI, radIo, radDo, shadow = so.Solweig1D_2020a_calc(svf, svfveg, svfaveg, sh, vegsh,  albedo_b, absK, absL, ewall,
                                                             Fside, Fup, Fcyl,
                                                             altitude[0][i], azimuth[0][i], zen[0][i], jday[0][i],
                                                             onlyglobal, location, dectime[i], altmax[0][i], cyl, elvis,
                                                             Ta[i], RH[i], radG[i], radD[i], radI[i], P[i],
                                                             Twater, TgK, Tstart, albedo_g, eground, TgK_wall, Tstart_wall,
                                                             TmaxLST, TmaxLST_wall, svfalfa, svfbuveg, CI, anisdiff, diffsh, trans, L_ani)
-
+        except ValueError:
+          # presumably NaNs
+          pass
+        except:
+          raise 
 
         # Write to array
         poi_save[i, 0] = YYYY[0][i]

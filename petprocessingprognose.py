@@ -185,17 +185,19 @@ def petcalcprognose(Ta, RH, Ws, radG, radD, radI, year, month, day, hour, minu, 
 
         try:
           Tmrt, Kdown, Kup, Ldown, Lup, Tg, ea, esky, I0, CI, Keast, Ksouth, Kwest, Knorth, Least, Lsouth, Lwest, \
-          Lnorth, KsideI, radIo, radDo, shadow = so.Solweig1D_2020a_calc(svf, svfveg, svfaveg, sh, vegsh,  albedo_b, absK, absL, ewall,
-                                                            Fside, Fup, Fcyl,
-                                                            altitude[0][i], azimuth[0][i], zen[0][i], jday[0][i],
-                                                            onlyglobal, location, dectime[i], altmax[0][i], cyl, elvis,
-                                                            Ta[i], RH[i], radG[i], radD[i], radI[i], P[i],
-                                                            Twater, TgK, Tstart, albedo_g, eground, TgK_wall, Tstart_wall,
-                                                            TmaxLST, TmaxLST_wall, svfalfa, svfbuveg, CI, anisdiff, diffsh, trans, L_ani)
+          Lnorth, KsideI, radIo, radDo, shadow = so.Solweig1D_2020a_calc(svf, svfveg, svfaveg, sh, vegsh,  albedo_b, 
+                        absK, absL, ewall, Fside, Fup, Fcyl,
+                        altitude[0][i], azimuth[0][i], zen[0][i], jday[0][i],
+                        onlyglobal, location, dectime[i], altmax[0][i], cyl, elvis,
+                        Ta[i], RH[i], radG[i], radD[i], radI[i], P[i],
+                        Twater, TgK, Tstart, albedo_g, eground, TgK_wall, Tstart_wall,
+                        TmaxLST, TmaxLST_wall, svfalfa, svfbuveg, CI, anisdiff, diffsh, trans, L_ani)
         except ValueError:
           # presumably NaNs
+          print('NaNs?')
           continue
         except:
+          print('Other error?')
           raise 
 
         # Write to array

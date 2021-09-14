@@ -67,6 +67,9 @@ def petcalcprognose(Ta, RH, Ws, radG, radD, radI, year, month, day, hour, minu, 
 
     metdata = np.zeros((Ta.__len__(), 24)) - 999.
 
+    #numformat = '%3d %2d %3d %2d %6.5f ' + '%6.2f ' * 29
+    poi_save = np.zeros((Ta.__len__(), 34))*np.NaN
+
     # doy = day_of_year(year, month, day)
 
     metdata[:, 0] = year
@@ -137,13 +140,25 @@ def petcalcprognose(Ta, RH, Ws, radG, radD, radI, year, month, day, hour, minu, 
     else:
         diffsh = []
 
-    #numformat = '%3d %2d %3d %2d %6.5f ' + '%6.2f ' * 29
-    poi_save = np.zeros((Ta.__len__(), 34))*np.NaN
 
 
     # main loop
     for i in np.arange(1, Ta.__len__()): # starting from 1 as rad[0] is nan
         # print(i)
+        
+        # what we can save without calculation
+        poi_save[i, 0] = YYYY[0][i]
+        poi_save[i, 1] = jday[0][i]
+        poi_save[i, 2] = hour[i]
+        poi_save[i, 3] = minu[i]
+        poi_save[i, 4] = dectime[i]
+        poi_save[i, 5] = altitude[0][i]
+        poi_save[i, 6] = azimuth[0][i]
+        poi_save[i, 9] = radG[i]
+        poi_save[i, 22] = Ta[i]
+        poi_save[i, 24] = RH[i]
+        poi_save[i, 30] = svf
+
         # Daily water body temperature
         if (dectime[i] - np.floor(dectime[i])) == 0 or (i == 0):
             Twater = np.mean(Ta[jday[0] == np.floor(dectime[i])])
@@ -179,7 +194,7 @@ def petcalcprognose(Ta, RH, Ws, radG, radD, radI, year, month, day, hour, minu, 
                                                             TmaxLST, TmaxLST_wall, svfalfa, svfbuveg, CI, anisdiff, diffsh, trans, L_ani)
         except ValueError:
           # presumably NaNs
-          pass
+          continue
         except:
           raise 
 

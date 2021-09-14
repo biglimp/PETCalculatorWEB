@@ -194,10 +194,10 @@ def petcalcprognose(Ta, RH, Ws, radG, radD, radI, year, month, day, hour, minu, 
                         TmaxLST, TmaxLST_wall, svfalfa, svfbuveg, CI, anisdiff, diffsh, trans, L_ani)
         except ValueError:
           # presumably NaNs
-          print('NaNs?')
+          #print('NaNs?')
           continue
         except:
-          print('Other error?')
+          #print('Other error?')
           raise 
 
         # Write to array
